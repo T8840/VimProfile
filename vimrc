@@ -37,17 +37,20 @@ call plug#end()
 syntax on                "自动语法高亮"
 winpos 5 5               "设定窗口大小"
 set nu                   "显示行号"
+set relativenumber       "显示光标所在的当前行的行号，其他行为相对于该行的行号"
 set background="dark"    "背景使用黑色"
 colorscheme murphy       "设置配色方案"
 set go=                  "不要图形按钮"
 set ruler                "显示标尺"
 set showcmd              "输入的命令显示出来"
+set showmode             "在底部显示是命令模式还是插入模式"
 set cmdheight=1          "命令行（在状态行下）的高度，设置为1"
 set confirm              "在处理未保存或只读文件的时候，弹出确认"
 set autoindent           "自动缩进"
 set autoread 	         "设置当文件被改动时自动载入"
+filetype indent on       "开启文件类型检查，并且载入于该类型对应的缩进规则" 
 set cindent
-
+set encoding=utf-8       "使用utf-8编码"
 set mouse=a                   "启用鼠标"
 set selection=exclusive       
 set selectmode=mouse,key
@@ -72,7 +75,13 @@ filetype on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
                                  "键盘命令"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-noremap jj <ESC> "将ESC映射为两次j键"
+" 打开vim自动执行命令
+autocmd VimEnter * NERDTree
+" 切换窗口命令映射-符合hjkl习惯
+"nnoremap <C-J> <C-W><C-J>
+"nnoremap <C-K> <C-W><C-K>
+"nnoremap <C-H> <C-W><C-H>
+"nnoremap <C-L> <C-W><C-L>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 				 "编辑python脚本"
@@ -84,4 +93,22 @@ func! PRUN()
 			exec "!python %"
 		endif
 endfunc
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+				 "编辑C/C++脚本"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufNewFile *.cpp exec ":call SetTitle()"
+	func SetTitle()
+		call setline(1,"/**")
+		call append(line(".")," *  Copyright (C) ".strftime("%Y")." All rights reserved.")
+		call append(line(".")+1," * ")
+		call append(line(".")+2," *  FileName     : ".expand("%:t"))
+		call append(line(".")+3," *  Author       : Atao")
+		call append(line(".")+4," *  Email        : Atao@123.com")
+		call append(line(".")+5," *  Date         : ".strftime("%Y年%月%d日"))
+		call append(line(".")+6," *  Description  : ")
+		call append(line(".")+7," */")
+	endfunc
+"自动将光标定位到末尾"
+autocmd BufNewFile * normal G
 
