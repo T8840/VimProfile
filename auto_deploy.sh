@@ -16,6 +16,7 @@ else
 	echo "存在文件已删除"
 fi
 # git上传
+cd $work_dir
 git add .
 git commit -m "add"
 git push 
