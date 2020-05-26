@@ -7,4 +7,4 @@ $ mv vimrc ~/.vimrc
 
 # 打开vim
 :source ~/.vimrc  
-;PlugInstall
+:PlugInstall
