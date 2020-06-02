@@ -1,4 +1,3 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
                                  "使用vim-plug插件"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 开始：定义插件存放位置 "
@@ -16,6 +15,11 @@ Plug 'preservim/nerdcommenter'                              " 代码注释插件
 Plug 'jiangmiao/auto-pairs'                                 " 括号/引号自动补齐插件
 Plug 'kien/rainbow_parentheses.vim'                         " 多色彩括号显示插件 
 
+"---------Markdown插件---------
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+"---------Python插件-----------
 "python自动补全插件"
 Plug 'davidhalter/jedi-vim'
 "python缩进指示线插件"
@@ -25,6 +29,8 @@ Plug 'tell-k/vim-autopep8'
 "Python语法和格式检测"
 Plug 'nvie/vim-flake8'
 
+"---------Java插件-------------
+"
 
 " 结束 "
 call plug#end()
@@ -76,36 +82,56 @@ filetype on
                                  "键盘命令"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 打开vim自动执行命令
-autocmd VimEnter * NERDTree
+" autocmd VimEnter * NERDTree
 " 切换窗口命令映射-符合hjkl习惯
 "nnoremap <C-J> <C-W><C-J>
 "nnoremap <C-K> <C-W><C-K>
 "nnoremap <C-H> <C-W><C-H>
 "nnoremap <C-L> <C-W><C-L>
+" 插入模式下移动
+inoremap <C-e> <END>
+inoremap <C-a> <HOME>
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <M-f> <S-Right>
+inoremap <M-b> <S-Left>
+inoremap <M-n> <Down>
+inoremap <M-p> <Up>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 				 "编辑python脚本"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufNewFile *.py exec ":call SetPythonTitle()"
+	func SetPythonTitle()
+		call setline(1,"#!/usr/bin/env python")
+		call append(line("."),"# -*- coding: utf-8 -*- ")
+		call append(line(".")+1,"# ")
+		call append(line(".")+2,"#  FileName     : ".expand("%:t"))
+		call append(line(".")+3,"#  Date         : ".strftime("%Y年%m月%d日"))
+		call append(line(".")+4,"#  Description  : ")
+		call append(line(".")+5,"# ")
+	endfunc
+"自动将光标定位到末尾"
 map <F5> :call PRUN()<CR>
 func! PRUN()
 	exec "w" 
 	        if &filetype == 'python'
-			exec "!python %"
+			exec "!python3 %"
 		endif
 endfunc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 				 "编辑C/C++脚本"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufNewFile *.cpp exec ":call SetTitle()"
-	func SetTitle()
+autocmd BufNewFile *.cpp exec ":call SetCTitle()"
+	func SetCTitle()
 		call setline(1,"/**")
 		call append(line(".")," *  Copyright (C) ".strftime("%Y")." All rights reserved.")
 		call append(line(".")+1," * ")
 		call append(line(".")+2," *  FileName     : ".expand("%:t"))
 		call append(line(".")+3," *  Author       : Atao")
 		call append(line(".")+4," *  Email        : Atao@123.com")
-		call append(line(".")+5," *  Date         : ".strftime("%Y年%月%d日"))
+		call append(line(".")+5," *  Date         : ".strftime("%Y年%m月%d日"))
 		call append(line(".")+6," *  Description  : ")
 		call append(line(".")+7," */")
 	endfunc
