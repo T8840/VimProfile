@@ -9,11 +9,13 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }     " 延迟按需加载
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }    " 确定插件仓库中的分支或者 tag 
-Plug 'tpope/vim-fugitive'                                  " vim内集成Git 
+Plug 'tpope/vim-fugitive'                                   " vim内集成Git 
 Plug 'vim-airline/vim-airline'                              " 下方显示指示箭头 
 Plug 'preservim/nerdcommenter'                              " 代码注释插件
 Plug 'jiangmiao/auto-pairs'                                 " 括号/引号自动补齐插件
 Plug 'kien/rainbow_parentheses.vim'                         " 多色彩括号显示插件 
+Plug 'MarcWeber/vim-addon-mw-utils'                         " vim-snipmate的依赖插件
+Plug 'garbas/vim-snipmate'                                  " 自动补全插件
 
 "---------Markdown插件---------
 Plug 'godlygeek/tabular'
